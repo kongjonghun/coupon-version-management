@@ -1,5 +1,6 @@
 package com.example.couponcore.service;
 
+
 import com.example.couponcore.repository.redis.RedisRepository;
 import com.example.couponcore.repository.redis.dto.CouponRedisEntity;
 import lombok.RequiredArgsConstructor;
@@ -7,14 +8,14 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class AsyncCouponIssueServiceV2 {
+public class AsyncCouponIssueServiceV3 {
 
     private final RedisRepository redisRepository;
     private final CouponCacheService couponCacheService;
 
-    // V2: 동시성 제어 - Redis Script 사용
+    // V3: Local Cache 사용
     public void issue(long couponId, long userId) {
-        CouponRedisEntity coupon = couponCacheService.getCouponCache(couponId);        
+        CouponRedisEntity coupon = couponCacheService.getCouponLocalCache(couponId);        
         coupon.checkIssuableCoupon();
         issueRequest(couponId, userId, coupon.totalQuantity());
     }
@@ -26,3 +27,4 @@ public class AsyncCouponIssueServiceV2 {
         redisRepository.issueRequest(couponId, userCouponId, totalIssueQuantity);
     }
 }
+

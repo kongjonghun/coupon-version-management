@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 public class CouponApiApplication {
 
     public static void main(String[] args) {
+        System.setProperty("spring.profiles.active", "local");
         System.setProperty("spring.config.name", "application-core,application-api");
         SpringApplication.run(CouponApiApplication.class, args);
     }

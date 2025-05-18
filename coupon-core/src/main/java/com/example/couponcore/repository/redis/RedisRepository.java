@@ -25,10 +25,9 @@ public class RedisRepository {
     private final String issueRequestQueueKey = getIssueRequestQueueKey();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Boolean zAdd(String key, String value, double score) {
-        return redisTemplate.opsForZSet().addIfAbsent(key, value, score);
-    }
-
+    /**
+     * Redis Set 연산
+     */
     public Long sAdd(String key, String value) {
         return redisTemplate.opsForSet().add(key, value);
     }
@@ -41,6 +40,9 @@ public class RedisRepository {
         return redisTemplate.opsForSet().isMember(key, value);
     }
 
+    /**
+     * Redis List 연산
+     */
     public Long rPush(String key, String value) {
         return redisTemplate.opsForList().rightPush(key, value);
     }
@@ -57,6 +59,10 @@ public class RedisRepository {
         return redisTemplate.opsForList().size(key);
     }
 
+
+    /**
+     * Redis Script 연산
+     */
     public void issueRequest(long couponId, long userId, int totalIssueQuantity) {
         String issueRequestKey = getIssueRequestKey(couponId);
         CouponIssueRequest couponIssueRequest = new CouponIssueRequest(couponId, userId);

@@ -14,6 +14,9 @@ public class CouponCacheService {
 
     private final CouponIssueService couponIssueService;
 
+    /**
+     * Redis Cache
+     */
     @Cacheable(cacheNames = "coupon")
     public CouponRedisEntity getCouponCache(long couponId) {
         Coupon coupon = couponIssueService.findCoupon(couponId);
@@ -25,6 +28,9 @@ public class CouponCacheService {
         return getCouponCache(couponId);
     }
 
+    /**
+     * Local Cache + Redis Cache
+     */
     @Cacheable(cacheNames = "coupon", cacheManager = "localCacheManager")
     public CouponRedisEntity getCouponLocalCache(long couponId) {
         return proxy().getCouponCache(couponId);

@@ -24,6 +24,15 @@ public class CouponIssueService {
     private final CouponIssueRepository couponIssueRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
 
+    /**
+     * 쿠폰 발급 처리
+     * 1. 쿠폰 ID 조회
+     * 2. 쿠폰 발급 가능 수량 & 유효 기간 검증
+     * 3. 쿠폰 중복 발급 여부 검증
+     * 3. 쿠폰 발급 이력 저장
+     * 4. 쿠폰 발급 완료 이벤트 발행
+     */
+    // 동기 처리, Database Record 락
     @Transactional
     public void issue(long couponId, long userId) {
         Coupon coupon = findCouponWithLock(couponId);

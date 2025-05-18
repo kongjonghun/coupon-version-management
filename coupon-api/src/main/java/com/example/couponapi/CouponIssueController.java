@@ -14,7 +14,7 @@ public class CouponIssueController {
 
     private final CouponIssueRequestService couponIssueRequestService;
 
-    @PostMapping("/v1/issue")
+    @PostMapping("/v0/issue")
     public CouponIssueResponseDto issueV1(@RequestBody CouponIssueRequestDto body) {
         couponIssueRequestService.issueRequestV1(body);
         return new CouponIssueResponseDto(true, null);
@@ -29,6 +29,12 @@ public class CouponIssueController {
     @PostMapping("/v2/issue-async")
     public CouponIssueResponseDto issueAsyncV2(@RequestBody CouponIssueRequestDto body) {
         couponIssueRequestService.asyncIssueRequestV2(body);
+        return new CouponIssueResponseDto(true, null);
+    }
+
+    @PostMapping("/v3/issue-async")
+    public CouponIssueResponseDto issueAsyncV3(@RequestBody CouponIssueRequestDto body) {
+        couponIssueRequestService.asyncIssueRequestV3(body);
         return new CouponIssueResponseDto(true, null);
     }
 }

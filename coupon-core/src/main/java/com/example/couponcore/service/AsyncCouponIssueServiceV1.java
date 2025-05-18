@@ -24,9 +24,11 @@ public class AsyncCouponIssueServiceV1 {
     private final CouponCacheService couponCacheService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    // V1: 동시성 제어 - Redisson 분산 락 사용
     public void issue(long couponId, long userId) {
         CouponRedisEntity coupon = couponCacheService.getCouponCache(couponId);
         coupon.checkIssuableCoupon();
+        // 분산락
         distributeLockExecutor.execute("lock_%s".formatted(couponId), 3000, 3000, () -> {
             couponIssueRedisService.checkCouponIssueQuantity(coupon, userId);
             issueRequest(couponId, userId);

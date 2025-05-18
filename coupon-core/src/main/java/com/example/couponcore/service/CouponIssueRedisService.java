@@ -17,24 +17,32 @@ public class CouponIssueRedisService {
     private final RedisRepository redisRepository;
 
     public void checkCouponIssueQuantity(CouponRedisEntity coupon, long userId) {
+        // 쿠폰 중복 발급 여부 검증
         if (!availableUserIssueQuantity(coupon.id(), userId)) {
             throw new CouponIssueException(DUPLICATED_COUPON_ISSUE, "발급 가능한 수량을 초과합니다. couponId : %s, userId: %s".formatted(coupon.id(), userId));
         }
+        // 쿠폰 발급 가능 수량 검증
         if (!availableTotalIssueQuantity(coupon.totalQuantity(), coupon.id())) {
             throw new CouponIssueException(INVALID_COUPON_ISSUE_QUANTITY, "발급 가능한 수량을 초과합니다. couponId : %s, userId : %s".formatted(coupon.id(), userId));
         }
     }
 
+    /**
+     * 쿠폰 중복 발급 여부 검증
+     */
+    public boolean availableUserIssueQuantity(long couponId, long userId) {
+        String key = getIssueRequestKey(couponId);
+        return !redisRepository.sIsMember(key, String.valueOf(userId));
+    }
+
+    /**
+     * 쿠폰 발급 가능 수량 검증
+     */
     public boolean availableTotalIssueQuantity(Integer totalQuantity, long couponId) {
         if (totalQuantity == null) {
             return true;
         }
         String key = getIssueRequestKey(couponId);
         return totalQuantity > redisRepository.sCard(key);
-    }
-
-    public boolean availableUserIssueQuantity(long couponId, long userId) {
-        String key = getIssueRequestKey(couponId);
-        return !redisRepository.sIsMember(key, String.valueOf(userId));
     }
 }

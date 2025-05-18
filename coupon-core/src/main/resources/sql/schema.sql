@@ -29,3 +29,31 @@ CREATE TABLE `coupon`.`coupon_issues`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
     COMMENT '쿠폰 발급 내역';
+
+
+INSERT INTO coupons (
+    title,
+    coupon_type,
+    total_quantity,
+    issued_quantity,
+    discount_amount,
+    min_available_amount,
+    date_issue_start,
+    date_issue_end,
+    date_created,
+    date_updated
+) VALUES (
+    '네고왕 선착순 할인 쿠폰',
+    'FIRST_COME_FIRST_SERVED',               
+    500,
+    0,
+    100000,                    
+    110000,                 
+    '2025-05-01 00:00:00',
+    '2025-06-01 23:59:59',
+    NOW(),
+    NOW()
+);
+
+
+delete from coupon_issues where 1=1;
