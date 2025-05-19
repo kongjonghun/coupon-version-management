@@ -2,7 +2,7 @@ package com.example.couponconsumer.listener;
 
 import com.example.couponcore.repository.redis.RedisRepository;
 import com.example.couponcore.repository.redis.dto.CouponIssueRequest;
-import com.example.couponcore.service.CouponIssueService;
+import com.example.couponcore.service.CouponIssueServiceV0;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import static com.example.couponcore.util.CouponRedisUtils.getIssueRequestQueueK
 @Component
 public class CouponIssueListener {
 
-    private final CouponIssueService couponIssueService;
+    private final CouponIssueServiceV0 couponIssueService;
     private final RedisRepository redisRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final String issueRequestQueueKey = getIssueRequestQueueKey();

@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CouponCacheService {
 
-    private final CouponIssueService couponIssueService;
+    private final CouponIssueServiceV0 couponIssueServiceV0;
 
     /**
      * Redis Cache
      */
     @Cacheable(cacheNames = "coupon")
     public CouponRedisEntity getCouponCache(long couponId) {
-        Coupon coupon = couponIssueService.findCoupon(couponId);
+        Coupon coupon = couponIssueServiceV0.findCoupon(couponId);
         return new CouponRedisEntity(coupon);
     }
 

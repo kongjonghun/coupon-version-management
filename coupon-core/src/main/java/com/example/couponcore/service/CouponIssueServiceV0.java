@@ -17,7 +17,7 @@ import static com.example.couponcore.exception.ErrorCode.DUPLICATED_COUPON_ISSUE
 
 @RequiredArgsConstructor
 @Service
-public class CouponIssueService {
+public class CouponIssueServiceV0 {
 
     private final CouponJpaRepository couponJpaRepository;
     private final CouponIssueJpaRepository couponIssueJpaRepository;

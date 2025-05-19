@@ -2,7 +2,7 @@ package com.example.couponconsumer.listener;
 
 import com.example.couponconsumer.TestConfig;
 import com.example.couponcore.repository.redis.RedisRepository;
-import com.example.couponcore.service.CouponIssueService;
+import com.example.couponcore.service.CouponIssueServiceV0;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +32,7 @@ class CouponIssueListenerTest extends TestConfig {
     RedisRepository repository;
 
     @MockBean
-    CouponIssueService couponIssueService;
+    CouponIssueServiceV0 couponIssueServiceV0;
 
     @BeforeEach
     void clear() {
@@ -47,7 +47,7 @@ class CouponIssueListenerTest extends TestConfig {
         // when
         sut.issue();
         // then
-        verify(couponIssueService, never()).issue(anyLong(), anyLong());
+        verify(couponIssueServiceV0, never()).issue(anyLong(), anyLong());
     }
 
     @Test
@@ -62,7 +62,7 @@ class CouponIssueListenerTest extends TestConfig {
         // when
         sut.issue();
         // then
-        verify(couponIssueService, times(1)).issue(couponId, userId);
+        verify(couponIssueServiceV0, times(1)).issue(couponId, userId);
     }
 
     @Test
@@ -81,9 +81,9 @@ class CouponIssueListenerTest extends TestConfig {
         // when
         sut.issue();
         // then
-        InOrder inOrder = Mockito.inOrder(couponIssueService);
-        inOrder.verify(couponIssueService, times(1)).issue(couponId, userId1);
-        inOrder.verify(couponIssueService, times(1)).issue(couponId, userId2);
-        inOrder.verify(couponIssueService, times(1)).issue(couponId, userId3);
+        InOrder inOrder = Mockito.inOrder(couponIssueServiceV0);
+        inOrder.verify(couponIssueServiceV0, times(1)).issue(couponId, userId1);
+        inOrder.verify(couponIssueServiceV0, times(1)).issue(couponId, userId2);
+        inOrder.verify(couponIssueServiceV0, times(1)).issue(couponId, userId3);
     }
 }

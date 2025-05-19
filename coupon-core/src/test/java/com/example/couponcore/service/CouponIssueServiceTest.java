@@ -22,7 +22,7 @@ import static com.example.couponcore.exception.ErrorCode.*;
 class CouponIssueServiceTest extends TestConfig {
 
     @Autowired
-    CouponIssueService sut;
+    CouponIssueServiceV0 sut;
 
     @Autowired
     CouponIssueJpaRepository couponIssueJpaRepository;
