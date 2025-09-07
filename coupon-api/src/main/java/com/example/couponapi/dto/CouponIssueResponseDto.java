@@ -1,4 +1,4 @@
-package com.example.couponapi.controller.dto;
+package com.example.couponapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

@@ -35,6 +35,13 @@ public class AsyncCouponIssueServiceV1 {
         });
     }
 
+    /**
+     * 1. totalQuantity > redisRepository.sCard(key); // 쿠폰 발급 가능 수량 검증
+     * 2. !redisRepository.sIsMember(key, String.valueOf(userId)); // 쿠폰 중복 발급 여부 검증
+     * 3. redisRepository.sAdd(key, userId); // 쿠폰 발급 요청 이력 저장
+     * 4. redisRepository.rPush(queueKey, issueRequest); // 쿠폰 발급 큐 적재
+     */
+
     private void issueRequest(long couponId, long userId) {
         CouponIssueRequest issueRequest = new CouponIssueRequest(couponId, userId);
         try {

@@ -21,7 +21,7 @@ import static com.example.couponcore.util.CouponRedisUtils.getIssueRequestQueueK
 public class RedisRepository {
 
     private final RedisTemplate<String, String> redisTemplate;
-    private final RedisScript<String> issueScript = issueRequestScript();
+    private final RedisScript<String> issueRequestScript = issueRequestScript();
     private final String issueRequestQueueKey = getIssueRequestQueueKey();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -68,7 +68,7 @@ public class RedisRepository {
         CouponIssueRequest couponIssueRequest = new CouponIssueRequest(couponId, userId);
         try {
             String code = redisTemplate.execute(
-                    issueScript,
+                    issueRequestScript,
                     List.of(issueRequestKey, issueRequestQueueKey),
                     String.valueOf(userId),
                     String.valueOf(totalIssueQuantity),

@@ -1,6 +1,6 @@
-package com.example.couponapi;
+package com.example.couponapi.controller;
 
-import com.example.couponapi.controller.dto.CouponIssueResponseDto;
+import com.example.couponapi.dto.CouponIssueResponseDto;
 import com.example.couponcore.exception.CouponIssueException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,4 +13,3 @@ public class CouponControllerAdvice {
         return new CouponIssueResponseDto(false, exception.getErrorCode().message);
     }
 }
-

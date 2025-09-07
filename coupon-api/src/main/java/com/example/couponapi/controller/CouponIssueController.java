@@ -1,7 +1,7 @@
-package com.example.couponapi;
+package com.example.couponapi.controller;
 
-import com.example.couponapi.controller.dto.CouponIssueRequestDto;
-import com.example.couponapi.controller.dto.CouponIssueResponseDto;
+import com.example.couponapi.dto.CouponIssueRequestDto;
+import com.example.couponapi.dto.CouponIssueResponseDto;
 import com.example.couponapi.service.CouponIssueRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
